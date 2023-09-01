@@ -1,0 +1,1 @@
+# blog_de_test_assigment_template
