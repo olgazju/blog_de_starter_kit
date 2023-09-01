@@ -164,3 +164,8 @@ cython_debug/
 
 .python-version
 __pycache__
+
+.*
+!.gitignore
+
+mage_src

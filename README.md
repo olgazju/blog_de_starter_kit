@@ -21,3 +21,9 @@ say about .secrets
 4.Restart the containers using the following command:
 
     docker-compose up -d
+
+
+How to choose jupyter image https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-datascience-notebook
+
+
+public datasets https://github.com/awesomedata/awesome-public-datasets

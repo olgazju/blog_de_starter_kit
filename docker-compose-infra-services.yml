@@ -120,7 +120,7 @@ services:
     command: -c "
             sleep 2
             && aws --endpoint-url http://minio:9000 s3 mb s3://my-bucket --region us-east-1
-            && aws --endpoint-url http://minio:9000 s3 cp data.parquet  s3://my-bucket/data.parquet 
+            && aws --endpoint-url http://minio:9000 s3 cp data.csv  s3://my-bucket/data.csv
             && exit 0"
     entrypoint: [/bin/bash]
     volumes:
@@ -146,12 +146,19 @@ services:
       - ./mage_src:/home/src
     networks:
       - redpanda_network
-      
+
   jupyter:
     image: jupyter/minimal-notebook:latest
     ports:
       - 8888:8888
     volumes:
       - ./jupyter_workspace:/home/jovyan
+    # disable password for jupyter
+    command:
+      - jupyter
+      - notebook
+      - --no-browser
+      - --NotebookApp.token=''
+      - --NotebookApp.password=''
     networks:
       - redpanda_network
