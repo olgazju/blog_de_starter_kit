@@ -1,0 +1,8 @@
+.git
+.gitignore
+.env
+.secrets
+*.md
+.python-version
+__pycache__
+Dockerfile*

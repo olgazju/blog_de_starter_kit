@@ -1,0 +1,30 @@
+version: "3.7"
+name: redpanda-quickstart
+include:
+  - docker-compose-infra-services.yml
+services:
+  # this is a docker with dev hugging face model for dev purposes
+  # should not be here on production
+
+  my-service:
+    build:
+      context: .
+      dockerfile: python_app/Dockerfile
+    depends_on:
+      mysql-db:
+        condition: service_healthy 
+      redpanda-init:
+        condition: service_started
+    networks:
+      - redpanda_network
+    environment:
+      - BROKER_URL=redpanda-0:9092
+      - BROKER_TOPIC=my-topic
+      - MYSQL_DATABASE=my_database
+      - MYSQL_URL=mysql-db:3306
+    env_file:
+       - '.secrets'
+    #volumes:
+    #  - .:/home/user/app
+    restart: on-failure   
+ 
