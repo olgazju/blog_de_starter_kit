@@ -16,7 +16,7 @@ def uuid_gen():
     return str(uuid.uuid4())
 
 class Sessions(Base):
-    __tablename__ = 'server_states'
+    __tablename__ = 'sessions'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     session_id = Column(String(255), default=uuid_gen, nullable=False)

@@ -103,3 +103,55 @@ services:
       - mysql-data:/var/lib/mysql
     networks:
       - redpanda_network
+
+  minio:
+    image: minio/minio:RELEASE.2023-08-29T23-07-35Z
+    container_name: s3
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: server --console-address ":9001" /data
+    networks:
+      - redpanda_network
+
+  aws:
+    image: amazon/aws-cli
+    container_name: aws-cli
+    command: -c "
+            sleep 2
+            && aws --endpoint-url http://minio:9000 s3 mb s3://my-bucket --region us-east-1
+            && aws --endpoint-url http://minio:9000 s3 cp data.parquet  s3://my-bucket/data.parquet 
+            && exit 0"
+    entrypoint: [/bin/bash]
+    volumes:
+      - "./local_data:/aws"
+    environment:
+      AWS_ACCESS_KEY_ID: "minioadmin"
+      AWS_SECRET_ACCESS_KEY: "minioadmin"
+    depends_on:
+      - minio
+    networks:
+      - redpanda_network
+
+  mage-ai:
+    image: mageai/mageai:latest
+    ports:
+      - 6789:6789
+    command:
+      - /app/run_app.sh
+      - mage
+      - start
+      - my_project
+    volumes:
+      - ./mage_src:/home/src
+    networks:
+      - redpanda_network
+      
+  jupyter:
+    image: jupyter/minimal-notebook:latest
+    ports:
+      - 8888:8888
+    volumes:
+      - ./jupyter_workspace:/home/jovyan
+    networks:
+      - redpanda_network
