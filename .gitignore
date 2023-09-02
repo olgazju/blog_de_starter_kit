@@ -167,5 +167,3 @@ __pycache__
 
 .*
 !.gitignore
-
-mage_src

@@ -1,0 +1,67 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - transformer
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: s3-load
+  retry_config: null
+  status: executed
+  type: data_loader
+  upstream_blocks: []
+  uuid: s3_load
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - mysql_export
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transformer
+  retry_config: null
+  status: executed
+  type: transformer
+  upstream_blocks:
+  - s3_load
+  uuid: transformer
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: mysql_export
+  retry_config: null
+  status: executed
+  type: data_exporter
+  upstream_blocks:
+  - transformer
+  uuid: mysql_export
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2023-09-02 11:23:06.617234+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: my_pipeline
+notification_config: {}
+retry_config: {}
+run_pipeline_in_one_process: false
+spark_config: {}
+tags: []
+type: python
+updated_at: '2023-09-02 12:58:09'
+uuid: my_pipeline
+widgets: []

@@ -1,0 +1,17 @@
+version: 0.1.1
+default:
+  # Default profile created for data IO access.
+  # Add your credentials for the source you use, and delete the rest.
+  # AWS
+  AWS_ACCESS_KEY_ID: ""
+  AWS_SECRET_ACCESS_KEY: ""
+  AWS_REGION: us-east-1
+  AWS_ENDPOINT: http://minio:9000
+  
+  # MySQL
+  MYSQL_DATABASE: my_database
+  MYSQL_HOST: mysql-db
+  MYSQL_PASSWORD: very_strong_password
+  MYSQL_PORT: 3306
+  MYSQL_USER: root
+  
